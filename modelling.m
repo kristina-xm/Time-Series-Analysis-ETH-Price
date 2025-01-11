@@ -46,3 +46,6 @@ parcorr(r.^2);
 title('Partial Autocorrelation of Squared Returns');
 ax = gca; 
 ax.XTick = 0:2:20; % Set ticks at intervals of 2
+
+% Ljung-Box test for squared returns
+[H_LB, p_LB] = lbqtest(r.^2);
