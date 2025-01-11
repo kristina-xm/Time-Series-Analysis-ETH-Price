@@ -52,3 +52,17 @@ ax.XTick = 0:2:20; % Set ticks at intervals of 2
 
 % ARCH test for returns
 [H_ARCH, p_ARCH] = archtest(r, 'Lags', 2);
+
+% Define models
+CondVarMdl = garch(1,1);  % GARCH model for conditional variance
+
+% ARIMA models with conditional variance models
+Model1 = arima(ARLags=1, Variance=CondVarMdl);
+Model2 = arima(MALags=1, Variance=CondVarMdl);
+Model3 = arima(ARLags=2, MALags=1, Variance=CondVarMdl);
+
+% GJR-GARCH models for asymmetry
+CondVarMd2 = gjr(1,1);
+Model4 = arima(ARLags=1, Variance=CondVarMd2);
+Model5 = arima(MALags=1, Variance=CondVarMd2);
+Model6 = arima(ARLags=2, MALags=1, Variance=CondVarMd2);
