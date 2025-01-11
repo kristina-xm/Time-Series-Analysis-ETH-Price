@@ -1,6 +1,10 @@
 load proj.mat;
 
 y = Close;
+
+%Divide the data into two datasets:
+%yE for estimation
+%yT for testing
 yE = y(1:1086)
 yT = y(1086:end)
 
@@ -12,8 +16,6 @@ title({'Daily Ethereum Price in USD'; 'at Close (Raw Data)'});
 % Calculate returns from the price series in percentages
 r = 100 * price2ret(yE);
 
-[h_adf, pValue_adf] = adftest(r);
-
 % Length of the return series
 T = length(r);
 figure;
@@ -24,24 +26,23 @@ title('Percentage Returns');
 figure;
 autocorr(r);
 title('Autocorrelation of Returns');
-ax = gca; % Get the current axes
-ax.XTick = 0:3:20; % Set ticks at intervals of 3 (e.g., 0, 3, 6, ..., 20)
+ax = gca;
+ax.XTick = 0:3:20; % Set ticks at intervals of 3
 
 figure;
 parcorr(r);
 title('Partial Autocorrelation of Returns');
-ax = gca; % Get the current axes
-ax.XTick = 0:3:20; % Set ticks at intervals of 3 (e.g., 0, 3, 6, ..., 20)
+ax = gca;
+ax.XTick = 0:3:20; % Set ticks at intervals of 3
 
 figure;
 autocorr(r.^2);
 title('Autocorrelation of Squared Returns');
-ax = gca; % Get the current axes
-ax.XTick = 0:2:20; % Set ticks at intervals of 3 (e.g., 0, 3, 6, ..., 20)
+ax = gca;
+ax.XTick = 0:2:20; % Set ticks at intervals of 2
 
 figure;
 parcorr(r.^2);
 title('Partial Autocorrelation of Squared Returns');
-ax = gca; % Get the current axes
-ax.XTick = 0:2:20; % Set ticks at intervals of 3 (e.g., 0, 3, 6, ..., 20)
-
+ax = gca; 
+ax.XTick = 0:2:20; % Set ticks at intervals of 2
